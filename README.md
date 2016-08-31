@@ -10,7 +10,7 @@ Check [https://github.com/realh/flexitime] for updates.
 
 To install: copy `plugin.flexitime.php` to xaseco's `plugins` directory and
 `flexitime.xml` to the parent of that directory. Edit `flexitime.xml` (using a
-decent editor with syntax highlighting is strongly recommened) to customise
+decent editor with syntax highlighting is strongly recommended) to customise
 the plugin for your server. The plugin runs its own timer in place of the
 standard timer so disable the latter by setting `<timeattack_limit>` or
 whatever to 0 in the server's `MatchSettings` config.
@@ -22,21 +22,27 @@ sure your database has the appropriate table. See
 Example usage:
 
 Query the time remaining:
+
     /timeleft
 
 Set the remaining time to 10 minutes:
+
     /timeleft 10
 
 Add 10 minutes to the remaining time:
+
     /timeleft +10
 
 Subtract 10 minutes from the remaining time:
+
     /timeleft -10
 
 Pause the countdown:
+
     /timeleft pause
 
 Resume from pause:
+
     /timeleft resume
 
 Copyright (c) 2015 Tony Houghton ("realh")
