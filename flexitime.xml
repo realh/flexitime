@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<flexitime>
+
+    <!-- Minimum admin level needed to change the time:
+        0 = Only whitelisted users
+        1 = Master admins
+        2 = Admins
+        3 = Operators
+        4 = Anybody
+    -->
+    <admin_level>2</admin_level>
+
+    <!-- Each <admin> child element contains the login of a whitelisted user who
+        can change the time regardless of admin level.
+    -->
+    <whitelist>
+        <admin>realh</admin>
+        <admin>supercharn</admin>
+        <admin>plext</admin>
+    </whitelist>
+
+    <!-- Default time limit in minutes (maximum time if <author_mult> is not 0).
+    -->
+    <default_time>120</default_time>
+
+    <!-- Whether to use custom time database and /timeset (0 or 1). -->
+    <custom_time>0</custom_time>
+
+    <!-- Default time for each track is <author_mult> x track's author time
+        or 0 to use <default_time>. -->
+    <author_mult>0</author_mult>
+
+    <!-- Minimum time in minutes if using <author_mult>. -->
+    <min_time>15</min_time>
+
+    <!-- Whether to send chat messages showing time left at regular intervals
+        (0 or 1).
+    -->
+    <use_chat>0</use_chat>
+
+    <!-- Whether to show time in a panel (0 or 1). -->
+    <show_panel>1</show_panel>
+
+    <!-- Default clock colour (note British spelling). -->
+    <colour>fff</colour>
+
+    <!-- When time falls below <warn_time> in seconds, or below the current
+        track's author time, the clock colour is changed to the rgb value in
+        <warn_colour> (note British spelling).
+    -->
+    <warn_time>300</warn_time>
+    <warn_colour>ff4</warn_colour>
+
+    <!-- As above but for when time is about to run out. -->
+    <danger_time>60</danger_time>
+    <danger_colour>f44</danger_colour>
+
+</flexitime>
