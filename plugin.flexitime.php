@@ -26,6 +26,7 @@
  */
 
 Aseco::registerEvent("onStartup", "realh_flexitime_startup");
+Aseco::registerEvent("onNewChallenge", "realh_flexitime_end_round");
 Aseco::registerEvent("onBeginRound", "realh_flexitime_begin_round");
 Aseco::registerEvent("onEndRound", "realh_flexitime_end_round");
 Aseco::registerEvent("onEverySecond", "realh_flexitime_tick");
