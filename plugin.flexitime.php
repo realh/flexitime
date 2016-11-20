@@ -26,7 +26,6 @@
  */
 
 Aseco::registerEvent("onStartup", "realh_flexitime_startup");
-Aseco::registerEvent("onNewChallenge", "realh_flexitime_end_round");
 Aseco::registerEvent("onBeginRound", "realh_flexitime_begin_round");
 Aseco::registerEvent("onEndRound", "realh_flexitime_end_round");
 Aseco::registerEvent("onEverySecond", "realh_flexitime_tick");
@@ -42,7 +41,7 @@ global $realh_flexitime;
 
 class FlexiTime {
 
-    private $VERSION = "1.1.3";
+    private $VERSION = "1.2.2";
 
     /* CONFIG OPTIONS, SET IN flexitime.xml */
 
@@ -294,7 +293,7 @@ class FlexiTime {
         {
             $this->showTimeLeftInChat();
         }
-        if ($this->time_left <= 0) {
+        if (!$this-paused && $this->time_left <= 0) {
             $this->nextRound();
         }
     }
