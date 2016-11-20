@@ -44,7 +44,7 @@ global $realh_flexitime;
 
 class FlexiTime {
 
-    private $VERSION = "1.2.2";
+    private $VERSION = "1.3.1";
 
     /* CONFIG OPTIONS, SET IN flexitime.xml */
 
@@ -200,7 +200,7 @@ class FlexiTime {
     public function commandTimeLeft($command, $emergency) {
         $param = trim($command["params"]);
         $login = $command["author"]->login;
-        if (empty($param)) {
+        if (!$emergency && empty($param)) {
             $this->showPrivateMsg($login, $this->getTimeLeftText());
         } else {
             if ($this->authenticateCommand($command)) {
