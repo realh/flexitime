@@ -44,7 +44,7 @@ global $realh_flexitime;
 
 class FlexiTime {
 
-    private $VERSION = "1.3.1";
+    private $VERSION = "1.3.2";
 
     /* CONFIG OPTIONS, SET IN flexitime.xml */
 
@@ -232,21 +232,28 @@ class FlexiTime {
                     }
                     $val *= 60;
                 }
+
+                $tl = $this->timeleft;
                 if ($plus) {
-                    $this->time_left += $val;
+                    $tl += $val;
                 } else if ($minus) {
-                    $this->time_left -= $val;
+                    $tl -= $val;
                 } else {
-                    $this->time_left = $val;
+                    $tl = $val;
                 }
-                if ($this->time_left < 0) {
-                    $this->time_left = 0;
+                if ($tl < 0) {
+                    $this->showPrivateMsg($login,
+                        "Can't set remaining time to less than zero.");
                 }
-                $this->showPanel();
-                $this->showChatMsg($login . " changed time left: " .
-                    $this->getTimeLeftText());
-                if ($this->time_left == 0) {
-                    $this->nextRound();
+                else
+                {
+                    $this->time_left = $tl;
+                    $this->showPanel();
+                    $this->showChatMsg($login . " changed time left: " .
+                        $this->getTimeLeftText());
+                    if ($this->time_left == 0) {
+                        $this->nextRound();
+                    }
                 }
             }
         }
@@ -289,7 +296,7 @@ class FlexiTime {
     }
 
     public function tick() {
-        if (!$this->paused) {
+        if (!$this->paused && $this->time_left > 0) {
             --$this->time_left;
         }
         $secs = $this->time_left;
