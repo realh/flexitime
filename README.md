@@ -37,6 +37,10 @@ Subtract 10 minutes from the remaining time:
 
     /timeleft -10
 
+Set remaining time to 5 minutes (easy to type when you're in a hurry):
+
+    /tl
+
 Pause the countdown:
 
     /timeleft pause
@@ -45,7 +49,7 @@ Resume from pause:
 
     /timeleft resume
 
-Copyright (c) 2015 Tony Houghton ("realh")
+Copyright (c) 2015-2016 Tony Houghton ("realh")
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to

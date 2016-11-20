@@ -4,7 +4,7 @@
  *
  * Flexible time limit for tracks. The time remaining can be changed on the
  * fly, or queried, using the /timeleft chat command.
- * Copyright (c) 2015 Tony Houghton ("realh")
+ * Copyright (c) 2015-2016 Tony Houghton ("realh")
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -32,6 +32,9 @@ Aseco::registerEvent("onEverySecond", "realh_flexitime_tick");
 
 Aseco::addChatCommand("timeleft",
     "Change or query time left: /timeleft [[+|-]MINUTES]|[pause|resume]");
+
+Aseco::addChatCommand("tl",
+    "Quickly set remaining time to 5 minutes");
 
 // You can comment out the next two lines if CUSTOM_TIME is false
 Aseco::addChatCommand("timeset", "Sets custom timelimit in minutes for when " .
@@ -194,7 +197,7 @@ class FlexiTime {
             $this->showTimeLeftInChat();
     }
 
-    public function commandTimeLeft($command) {
+    public function commandTimeLeft($command, $emergency) {
         $param = trim($command["params"]);
         $login = $command["author"]->login;
         if (empty($param)) {
@@ -210,34 +213,40 @@ class FlexiTime {
                     $this->showChatMsg($login . " unpaused the timer.");
                     return;
                 }
-                $plus = ($param[0] == "+");
-                $minus = ($param[0] == "-");
-                $val = $param;
-                if ($plus || $minus) {
-                    $val = substr($val, 1);
-                }
-                $val = intval($val);
-                if (!$val && !($param === "0")) {
-                    $this->showPrivateMsg($login,
-                        "Invalid parameter to /timeleft.");
+                if ($emergency) {
+                    $plus = false;
+                    $minus = false;
+                    $val = 300;
                 } else {
+                    $plus = ($param[0] == "+");
+                    $minus = ($param[0] == "-");
+                    $val = $param;
+                    if ($plus || $minus) {
+                        $val = substr($val, 1);
+                    }
+                    $val = intval($val);
+                    if (!$val && !($param === "0")) {
+                        $this->showPrivateMsg($login,
+                            "Invalid parameter to /timeleft.");
+                        return;
+                    }
                     $val *= 60;
-                    if ($plus) {
-                        $this->time_left += $val;
-                    } else if ($minus) {
-                        $this->time_left -= $val;
-                    } else {
-                        $this->time_left = $val;
-                    }
-                    if ($this->time_left < 0) {
-                        $this->time_left = 0;
-                    }
-                    $this->showPanel();
-                    $this->showChatMsg($login . " changed time left: " .
-                        $this->getTimeLeftText());
-                    if ($this->time_left == 0) {
-                        $this->nextRound();
-                    }
+                }
+                if ($plus) {
+                    $this->time_left += $val;
+                } else if ($minus) {
+                    $this->time_left -= $val;
+                } else {
+                    $this->time_left = $val;
+                }
+                if ($this->time_left < 0) {
+                    $this->time_left = 0;
+                }
+                $this->showPanel();
+                $this->showChatMsg($login . " changed time left: " .
+                    $this->getTimeLeftText());
+                if ($this->time_left == 0) {
+                    $this->nextRound();
                 }
             }
         }
@@ -453,7 +462,12 @@ function realh_flexitime_tick($aseco, $command) {
 
 function chat_timeleft($aseco, $command) {
     global $realh_flexitime;
-    $realh_flexitime->commandTimeLeft($command);
+    $realh_flexitime->commandTimeLeft($command, false);
+}
+
+function chat_tl($aseco, $command) {
+    global $realh_flexitime;
+    $realh_flexitime->commandTimeLeft($command, true);
 }
 
 function chat_timeset($aseco, $command) {
