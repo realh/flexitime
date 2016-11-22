@@ -44,7 +44,7 @@ global $realh_flexitime;
 
 class FlexiTime {
 
-    private $VERSION = "1.3.2";
+    private $VERSION = "1.3.3";
 
     /* CONFIG OPTIONS, SET IN flexitime.xml */
 
@@ -309,7 +309,7 @@ class FlexiTime {
         {
             $this->showTimeLeftInChat();
         }
-        if (!$this-paused && $this->time_left <= 0) {
+        if (!$this->paused && $this->time_left <= 0) {
             $this->nextRound();
         }
     }
