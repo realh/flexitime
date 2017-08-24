@@ -213,9 +213,9 @@ class FlexiTime {
                     $this->showChatMsg($login . " unpaused the timer.");
                     return;
                 }
+                $plus = false;
+                $minus = false;
                 if ($emergency) {
-                    $plus = false;
-                    $minus = false;
                     $val = 300;
                 } else {
                     $plus = ($param[0] == "+");
