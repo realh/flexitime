@@ -218,8 +218,8 @@ class FlexiTime {
                 if ($emergency) {
                     $val = 300;
                 } else {
-                    $plus = ($param[0] == "+");
-                    $minus = ($param[0] == "-");
+                    $plus = ($param[0] === "+");
+                    $minus = ($param[0] === "-");
                     $val = $param;
                     if ($plus || $minus) {
                         $val = substr($val, 1);
@@ -233,7 +233,7 @@ class FlexiTime {
                     $val *= 60;
                 }
 
-                $tl = $this->timeleft;
+                $tl = $this->time_left;
                 if ($plus) {
                     $tl += $val;
                 } else if ($minus) {
