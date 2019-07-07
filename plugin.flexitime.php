@@ -79,6 +79,9 @@ class FlexiTime {
     // Whether to show time in a panel
     private $SHOW_PANEL = true;
 
+    // Upper limit for /timeleft command
+    private $MAX_TIMELEFT = 1440;
+
     // Only users with logins in this array can change time
     private $ADMINS = array("supercharn", "plext", "realh");
 
@@ -108,6 +111,7 @@ class FlexiTime {
             $this->MIN_TIME = $this->intFromXml($this->MIN_TIME, $xml, 'MIN_TIME');
             $this->USE_CHAT = $this->boolFromXml($this->USE_CHAT, $xml, 'USE_CHAT');
             $this->SHOW_PANEL = $this->boolFromXml($this->SHOW_PANEL, $xml, 'SHOW_PANEL');
+            $this->MAX_TIMELEFT = $this->intFromXml($this->MAX_TIMELEFT, $xml, 'MAX_TIMELEFT');
             $this->CLOCK_COLOUR = $this->fromXml($this->CLOCK_COLOUR, $xml, 'COLOUR');
             $this->WARN_TIME = $this->intFromXml($this->WARN_TIME, $xml, 'WARN_TIME');
             $this->WARN_COLOUR = $this->fromXml($this->WARN_COLOUR, $xml, 'WARN_COLOUR');
@@ -240,6 +244,12 @@ class FlexiTime {
                     $tl -= $val;
                 } else {
                     $tl = $val;
+                }
+
+                if ($tl > ($this->MAX_TIMELEFT * 60)) {
+                    $this->showPrivateMsg($login,
+                        "Time limit over ".$this->MAX_TIMELEFT." is not allowed.");
+                    $tl = $this->MAX_TIMELEFT * 60;
                 }
                 if ($tl < 0) {
                     $this->showPrivateMsg($login,
