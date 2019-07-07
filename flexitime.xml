@@ -41,6 +41,9 @@
     <!-- Whether to show time in a panel (0 or 1). -->
     <show_panel>1</show_panel>
 
+    <!-- Upper limit for a /timeleft input -->
+    <max_timeleft>1440</max_timeleft>
+
     <!-- Default clock colour (note British spelling). -->
     <colour>fff</colour>
 
